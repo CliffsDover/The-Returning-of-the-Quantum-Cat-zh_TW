@@ -1,7 +1,7 @@
 game.codepage="UTF-8";
-game.act = 'Can\'t do that.';
+game.act = '沒有辦法這樣做…';
 game.inv = 'Hmm... Wrong...';
-game.use = 'Won\'t work...';
+game.use = '這樣行不通…';
 game.dsc = [[Commands:^
     look (or just Enter), act <on what> (or just on what), use <what> [on what], go <where>,^
     back, inv, way, obj, quit, save <fname>, load <fname>. Tab to autocomplete.^^

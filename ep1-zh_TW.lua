@@ -62,7 +62,7 @@ mytable = obj {
 			take('money');
 			return '翻找了一下抽屜，我找到一些現金。';
 		end
-		return '我親手做的桌子。';
+		return '這可是我親手做的桌子。';
 	end,
 };
 
@@ -95,7 +95,7 @@ gun = obj {
 		if not s._hidden then
 			if w == 'mywear' or w == 'alienwear' then
 				if not s._obrez then
-					return 'I tried to hide the shotgun in the clothes, but it was too long.'
+					return '我試著把槍藏在衣服裡，但這把槍實在太長了。'
 				else
 					s._hidden = true;
 					return 'Now I can hide the sawed-off shotgun in the clothes!';
@@ -103,7 +103,7 @@ gun = obj {
 			end
 		end
 		if not s._loaded then
-			return 'Not loaded...', false;
+			return '這把槍尚未上膛…', false;
 		end
 		if w == 'guard' then
 			return 'Yes, they are scoundrels, but firstly they are humans too, and secondly it wouldn\'t help...', false;
