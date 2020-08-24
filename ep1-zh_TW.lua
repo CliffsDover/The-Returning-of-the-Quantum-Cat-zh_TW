@@ -152,7 +152,7 @@ mycat = obj {
 		return s.lf[r];
 	end,
 	desc = { [1] = '我的貓 {巴西克}(“小雪豹”)正舒適地捲曲成一顆球，在壁爐旁睡覺。',
-		 [2] = '{Barsik} scans the terrain around the cabin.',
+		 [2] = '{巴西克} 掃瞄了一下小木屋四週的地形。',
 		 [3] = '{Barsik} is sitting on the front passenger seat.',
 		 [4] = '{Barsik} is studying something by the trash bins...',
 		 [5] = '{Barsik} snuggles up at my feet.',
@@ -223,7 +223,7 @@ The car starts reluctantly... After a long road I finally kill the engine and op
 mycar = obj {
 	nam = 'my car',
 	desc = {
-	[1] = 'In front of the cabin there is my old Toyota {pickup}.',
+	[1] = '在小木屋的前方停著我的舊豐田{小貨車}。',
 	[2] = 'In the parking lot there is my old {pickup}.',
 	[3] = 'Near the checkpoint stands my {pickup}.',
 	[4] = 'Behind the corner stands my {pickup}.',
@@ -261,9 +261,9 @@ iso = obj {
 };
 
 trap = obj {
-	nam = 'trap',
-	dsc = 'There\'s a {steel trap} in the snow.', -- !!!!
-	tak = 'Damned poachers! I\'m taking the trap with me.',
+	nam = '陷井',
+	dsc = '在雪地裡有個{鋼製陷井}。', -- !!!!
+	tak = '該死的盜獵者! 我要把這個陷井帶走。',
 	inv = function(s)
 		if s._salo then
 			return 'Big mousetrap! Insulated too.';
@@ -271,7 +271,7 @@ trap = obj {
 		if s._iso then
 			return 'Steel. Very sharp. Insulated with the tape.';
 		else
-			return 'Steel. Very sharp.';
+			return '鋼製而成的，非常銳利。';
 		end
 	end,
 	use = function(s, o)
@@ -288,23 +288,23 @@ trap = obj {
 
 deepforest = room {
 	i = 0,
-	nam = 'deep forest',
+	nam = '密林深處',
 	pic = 'gfx/deepforest.png',
 	dsc = function(s)
-		local st = 'I\'m deep in the woods... ';
+		local st = '我正處於森林的深處…';
 		if s._i == 1 then
-			return st..'Pines and firs... Nothing else...';
+			return st..'松樹和冷杉…沒別的了…';
 		elseif s._i == 2 then
-			return st..'Beautiful birches — trying not to get lost...';
+			return st..'漂亮的樺樹…我試著不要迷路…';
 		elseif s._i == 3 then
-			return st..'Impassable thicket... I don\'t understand — am I lost?..';
+			return st..'無法穿越的灌木叢…無法理解…我迷路了嗎?';
 		elseif s._i == 4 then
-			return st..'Beautiful lake... Yes... Should I go back?';
+			return st..'啊…美麗的湖…我該回頭嗎?';
 		elseif s._i == 5 then
 			s._trap = true;
-			return st..'Some bushes... Bushes... Bushes...';
+			return st..'一些草叢…到處都是早叢。';
 		else
-			return st..'Stump... What a beautiful stump...';
+			return st..'樹樁…真是的美麗的樹樁。';
 		end
 	end, 
 	enter = function(s,f)
@@ -324,13 +324,12 @@ deepforest = room {
 			s.way:add('forest');
 		end
 		if f == 'forest' and inv():srch('trap') then
-			return [[Thanks, i\'ve already went for a walk in the forest...]], false;
+			return [[多謝了…我已經在森林裡走了好一陣子。]], false;
 		end
 		if f == 'deepforest' then
-			return 'Hmm... Let\'s see...';
+			return '嗯…來瞧瞧…';
 		end
-		return [[Into the wild woods, afoot?
-Hm... Why not — that's my job after all... Would drive away some poachers...]], true;
+		return [[徒步走進林中? 嗯…未嘗不可，畢竟那是我的工作，也許這可以趕走一些盜獵者…]], true;
 --Я пол часа бродил по лесу, когда наткнулся на капкан...
 --Проклятые браконьеры! Я взял капкан с собой.]], false;
 	end,
@@ -338,9 +337,9 @@ Hm... Why not — that's my job after all... Would drive away some poachers...]]
 };
 
 road = room {
-	nam = 'road',
+	nam = '道路',
 	enter = function()
-		return 'Afoot? Naah...', false;
+		return '用走的? 算了吧…', false;
 	end
 };
 
@@ -348,7 +347,7 @@ forest = room {
 	nam = '小木屋前方',
 	pic = 'gfx/forest.png',
 	dsc = [[
-In front of the cabin everything is covered with drifting snow. Wild wood surrounds the cabin. The road to town is covered with snow.]],
+小木屋前方到處都是溼滑的白雪，密林環繞在小木屋四週，通往鎮上的路也被雪覆蓋。]],
 	way = { 'home', 'deepforest', 'road' },
 	obj = { 'mycar' },
 };
