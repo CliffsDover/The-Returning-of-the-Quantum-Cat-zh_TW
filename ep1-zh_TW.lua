@@ -153,9 +153,9 @@ mycat = obj {
 	end,
 	desc = { [1] = '我的貓 {巴西克}(“小雪豹”)正舒適地捲曲成一顆球，在壁爐旁睡覺。',
 		 [2] = '{巴西克} 掃瞄了一下小木屋四週的地形。',
-		 [3] = '{Barsik} is sitting on the front passenger seat.',
-		 [4] = '{Barsik} is studying something by the trash bins...',
-		 [5] = '{Barsik} snuggles up at my feet.',
+		 [3] = '{巴西克} 坐在前座的乘客座位上。',
+		 [4] = '{巴西克} 正在垃圾桶旁查看著某些東西…',
+		 [5] = '{巴西克} snuggles up at my feet.',
 	},
 	inv = 'Barsik is in my bosom... My poor tomkitty... I\'ll save you!!! And the whole world...',
 	dsc = function(s)
@@ -184,17 +184,17 @@ mycat = obj {
 };
 
 inmycar = room {
-	nam = 'in the car',
-	dsc = 'I\'m in my car... My workhorse...',
+	nam = '車子裡',
+	dsc = '我在我的車子裡…我的主力戰駒。',
 	pic = 'gfx/incar.png',
 	way = {'forest', 'village'},
 	enter = function(s, f)
-		local s = 'I open the car door.';
+		local s = '我打開車門，';
 		if have('mybox') then
 			return 'I can\'t get into the car with this box...', false;
 		end
 		if seen('mycat') then
-			s = s..' Barsik jumps into the car.'
+			s = s..'巴西克跳了上車，'
 			move('mycat','inmycar');
 		elseif not me()._know_where then
 			return 'No... First I have to find Barsik!', false
@@ -202,21 +202,21 @@ inmycar = room {
 		if f == 'guarddlg' then
 			return 'Hmm... I\'ll have to come up with something...';
 		end
-		return cat(s, ' Well, time to go...');
+		return cat(s, '嗯…該出發囉…');
 	end,
 	exit = function(s, t)
 		local s=''
 		if seen('mycat') then
-			s = ' Barsik is the first to jump out of the car.';
+			s = ' 巴西克先跳離了我的車。';
 			move('mycat',t);
 		end
 		if ref(t) ~= from() then
 			from().obj:del('mycar');
 			move('mycar', t);
 			return [[
-The car starts reluctantly... After a long road I finally kill the engine and open the door...]]..s;
+這車勉強地發動著…經過一段不算短的路程，我終於把引擎關閉，並把門打開…]]..s;
 		end
-		return 'No... I think, I forgot something...'..s;
+		return '等等…我想我好像忘了什麼東西…'..s;
 	end
 };
 
@@ -224,7 +224,7 @@ mycar = obj {
 	nam = 'my car',
 	desc = {
 	[1] = '在小木屋的前方停著我的舊豐田{小貨車}。',
-	[2] = 'In the parking lot there is my old {pickup}.',
+	[2] = '在停車位裡的是我的舊{小貨車}。',
 	[3] = 'Near the checkpoint stands my {pickup}.',
 	[4] = 'Behind the corner stands my {pickup}.',
 	},
@@ -385,9 +385,9 @@ When I was walking out, Barsik suddenly woke and dashed after me. I petted him b
 };
 ---------------- here village begins
 truck = obj {
-	nam = 'black car',
-	dsc = 'There\'s a black {car} with tinted windows sy the shop.',
-	act = 'Hm... It\'s a van... Armored body, it\'s evident by the wheel load...',
+	nam = '黑色車子',
+	dsc = '在店旁有輛有著有色玻璃的黑色{汽車}。',
+	act = '嗯…這是台廂型車…軍規車體…這可以明顯地從它的輪載看得出來…',
 };
 
 guydlg = dlg {
@@ -413,8 +413,8 @@ guydlg = dlg {
 };
 
 guy = obj {
-	nam = 'bum',
-	dsc = 'A {bum} is rummaging in the dumpster bins.',
+	nam = '流浪漢',
+	dsc = '一位{流浪漢}正在垃圾桶中翻找。',
 	act = function()
 		return walk('guydlg');
 	end,
@@ -663,9 +663,9 @@ mybox = obj {
 };
 
 boxes = obj {
-	nam = 'ящики',
+	nam = '{木箱}',
 	desc = {
-		[1] = 'Near the parking lot there are many empty wooden {boxes} that once held tins.',
+		[1] = '在停車位的附近有許多原本用來裝罐頭的空{木箱}。',
 	},
 	dsc = function(s)
 		local state = 1;
@@ -684,12 +684,12 @@ boxes = obj {
 };
 
 village = room {
-	nam = 'parking lot in front of the store',
-	dsc = 'A familiar place in front of the store. The parking lot. All covered with snow...',
+	nam = '商店前方的停車位',
+	dsc = '商店前方是我所熟悉的停車位，已被白雪完全的覆蓋…',
 	pic = 'gfx/shop.png',
 	act = function(s, w)
 		if w == 1 then
-			return 'Ordinary bins... White snow covers the garbage...';
+			return '普通的桶子…白雪覆蓋住了垃圾。';
 		end	
 	end,
 	exit = function(s, t)
@@ -712,7 +712,7 @@ village = room {
 		end
 	end,
 	way = { 'road', 'shop' },
-	obj = { 'truck', vobj(1,'bins', 'Rusty dumpster {bins} are covered with snow.'), 'guy','boxes' },
+	obj = { 'truck', vobj(1,'bins', '生鏽的垃圾{桶}被白雪覆蓋。'), 'guy','boxes' },
 };
 ----------- trying to go over wall
 function guardreact()
