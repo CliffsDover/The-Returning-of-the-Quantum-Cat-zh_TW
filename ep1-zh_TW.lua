@@ -191,7 +191,7 @@ inmycar = room {
 	enter = function(s, f)
 		local s = '我打開車門，';
 		if have('mybox') then
-			return 'I can\'t get into the car with this box...', false;
+			return '我無法拿著這個箱子進到車子裡…', false;
 		end
 		if seen('mycat') then
 			s = s..'巴西克跳了上車，'
@@ -607,42 +607,48 @@ carbox = obj {
 	end,
 	act = function(s)
 		if inv():srch('mybox') then
-			return 'I\'ve already got a box in my hands...';
+			return '我的手上已經拿了一個箱子…';
 		end
 		s._num = s._num - 1;
 		if s._num == 0 then
 			mycar.obj:del('carbox');
 		end
 		take('mybox');
-		return 'I took a box from the car.';
+		return '我從車上拿了一個箱子。';
 	end,
 	dsc = function(s)
 		if s._num == 0 then
 			return;
 		elseif s._num == 1 then
-			return 'There is one {box} in the cargo body of my car.';
+			return '在車子貨箱上有一個{箱子}。';
 		-- Again not needed, since "boxes" stays the same for all numerals
 		-- elseif s._num < 5 then
 		--	return 'There are '..tostring(s._num)..' {boxes} in the cargo body of my car.';
-		else	
-			return 'There are '..tostring(s._num)..' {boxes} in the cargo body of my car..';
+		elseif s._num == 2 then
+			return '在車子貨箱上有二個{箱子}。';
+		elseif s._num == 3 then
+			return '在車子貨箱上有三個{箱子}。';
+		elseif s._num == 4 then
+			return '在車子貨箱上有四個{箱子}。';
+		elseif s._num == 5 then
+			return '在車子貨箱上有五個{箱子}。';
 		end
 	end,
 };
 
 mybox = obj {
-	nam = 'a box',
-	inv = 'I am holding a wooden box... A soundly built thing! Might come in handy.',
+	nam = '箱子',
+	inv = '我正拿著個一製作完善的木箱…也許會派上用場。',
 	use = function(s, o)
 		if o == 'boxes' then
 			inv():del('mybox');
-			return 'I put the box back...';
+			return '我把箱子放了回去…';
 		end
 		if o == 'mycar' then
 			inv():del('mybox');
 			mycar.obj:add('carbox');
 			carbox._num = carbox._num + 1;
-			return 'I put the box in the cargo body of my car...';
+			return '我把箱子放進我的車子的貨箱裡…';
 		end
 		if o == 'ewall' or o == 'wboxes' then
 			if not cam._broken then
@@ -673,13 +679,13 @@ boxes = obj {
 	end,
 	act = function(s, t)
 		if carbox._num >= 5 then
-			return 'Maybe I\'ve got enough boxes already?...';
+			return '也許我已經拿了夠多的箱子了…?';
 		end
 		if inv():srch('mybox') then
-			return 'I\'m holding one box already...';
+			return '我正拿著一個箱子…';
 		end
 		take('mybox');
-		return 'I took a box.';
+		return '我拿了一個箱子。';
 	end,
 };
 
