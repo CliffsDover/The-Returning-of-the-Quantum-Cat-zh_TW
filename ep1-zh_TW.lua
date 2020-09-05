@@ -392,19 +392,18 @@ truck = obj {
 
 guydlg = dlg {
 	pic = 'gfx/guy.png',
-	nam = 'conversation with a bum',
-	dsc = 'I walked to him... He turned back and glanced at me — a shortish man in a worn cap and tattered quilted jacket.',
+	nam = '與流浪漢的對話',
+	dsc = '我走了過去…他轉過身瞧了我一眼…是一位體型稍矮，戴著一頂破舊帽子，身穿一件破爛棉襖的男性。',
 	obj = {
-		[1] = phr('Hi! Cold, isn\'t it?', 'Yes... Somewhat...'),
-		[2] = phr('How come you\'ve got to be out in the street?', 
-[[I used to work toward getting a Ph.D... I was writing a thesis about the structure of matter... But... Overstrained my brain... I tried to calm down and... Now I'm here...]]),
-		[3] = phr('What\'s your name?', 'Eduard...'),
+		[1] = phr('嗨! 有夠冷，不是嗎?', '嗯…是有點…'),
+		[2] = phr('你怎麼會現在在大街上?', [[我原本在攻讀博士學位…我當時正在寫一篇物質結構的論文…但…過度操勞了我的頭腦…我試著要冷靜下來…然後我現在就在這裡了…]]),
+		[3] = phr('你叫什麼名字?', '愛德華…'),
 		[4] = _phr('When I left, there was a cat next to you... Where is it?', 'Hm...', 'pon(5)'),
 		[5] = _phr('Yes... A tomcat. Ordinary tomcat roaming the snow around the dumpster.', 'So, that was your cat? Emmm...', 'pon(6)');
 		[6] = _phr('Yes... That was my Barsik! Tell me!', 
 '... Mmm... I think that man took it... Mmm... — a chill ran down my spine...', 'pon(7)'),
 		[7] = _phr('Where, where did he go?', 'Sorry, brother, I haven\'t seen...', 'shopdlg:pon(4); pon(8);'),
-		[8] = phr('Ok... Doesn\'t matter...', '...', 'pon(8); back()'),
+		[8] = phr('好的…沒什麼事了…', '…', 'pon(8); back()'),
 	},
 	exit = function()
 		pon(1);
@@ -555,32 +554,32 @@ doesn't like crowds — those physicists — you know... Odd bunch, — Vladimir
 
 shopman = obj {
 	nam = 'salesman',
-	dsc = 'There\'s a {salesman} behind the counter. His wide face with stubble is complemented by a monocle.',
+	dsc = '在櫃檯後方有位{店員}。他留著鬍渣的寬臉，搭配著單片眼鏡。',
 	act = function()
 		return walk('shopdlg');
 	end
 };
 
 shop = room {
-	nam = 'shop',
+	nam = '商店',
 	pic = 'gfx/inshop.png',
 	enter = function(s, f)
 		if village.obj:look('truck') then
 			village.obj:del('truck');
 			village.obj:del('mycat');
 			return [[
-When I entered the shop, I almost ran into an unpleasant man in a grey coat and broad-brimmed hat... He apologized in a sort of hissing voice and feighned raising his hat... White teeth flashed from under the brim... When I reached the counter, I heard the engine starting.]];
+當我走進商店的時候，我差一點要撞上了一個穿著灰色外套、戴著寬邊帽，且令人不甚喜歡的男人…他發出了一個嘶聲，並作勢舉起帽子道了個歉…在帽緣之下，白色的牙齒閃了一下…當我到達了櫃檯，我聽見了引擎發動的聲音。]];
 		end
 	end, 
 	act = function(s,w)
 		if w == 1 then
-			return 'There\'s only my car left in the parking lot.';
+			return '停車場上只剩下我的車子。';
 		end
 	end,
 	dsc = [[
-The store is somewhat unusual... Here you can find ironware, food, even ammunition... No wonder, since it's the only store in a 100 km area...]],
+在某種程度上，這家店有點與眾不同。在這裡你可以找到鐵具、食物、甚至彈藥。這也難怪，畢竟這是方圓100公里內唯一的一家商店…]],
 	way = { 'village' },
-	obj = {'shopman',vobj(1, 'окно', 'Through the {window} the parking lot is visible.') },
+	obj = {'shopman',vobj(1, 'окно', '透過{窗戶}可以看見停車場。') },
 	exit = function(s, t)
 		if t ~= 'village' then
 			return;
