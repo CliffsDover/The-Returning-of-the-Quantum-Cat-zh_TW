@@ -41,9 +41,9 @@ money = obj {
 		if w == 'shopman' then
 			if shopman._wantmoney then
 				shopman._wantmoney = false;
-				return 'I pay to Vladimir.';
+				return '我付了錢給弗拉迪米爾。';
 			end
-			return 'I don\'t want to pay without reason...';
+			return '我並不想毫無理由的付帳…';
 		end
 	end
 };
@@ -247,8 +247,8 @@ mycar = obj {
 };
 
 iso = obj {
-	nam = 'insulating tape',
-	inv = 'A roll of insulating tape. Blue...',
+	nam = '絕緣膠帶',
+	inv = '一卷藍色的絕緣膠帶…',
 	use = function(s, o)
 		if o == 'trap' and not trap._iso then
 			trap._iso = true;
@@ -261,9 +261,9 @@ iso = obj {
 };
 
 trap = obj {
-	nam = '陷井',
-	dsc = '在雪地裡有個{鋼製陷井}。', -- !!!!
-	tak = '該死的盜獵者! 我要把這個陷井帶走。',
+	nam = '捕捉器',
+	dsc = '在雪地裡有個{鋼製捕捉器}。', -- !!!!
+	tak = '該死的盜獵者! 我要把這個捕捉器帶走。',
 	inv = function(s)
 		if s._salo then
 			return 'Big mousetrap! Insulated too.';
@@ -398,11 +398,11 @@ guydlg = dlg {
 		[1] = phr('嗨! 有夠冷，不是嗎?', '嗯…是有點…'),
 		[2] = phr('你怎麼會現在在大街上?', [[我原本在攻讀博士學位…我當時正在寫一篇物質結構的論文…但…過度操勞了我的頭腦…我試著要冷靜下來…然後我現在就在這裡了…]]),
 		[3] = phr('你叫什麼名字?', '愛德華…'),
-		[4] = _phr('When I left, there was a cat next to you... Where is it?', 'Hm...', 'pon(5)'),
-		[5] = _phr('Yes... A tomcat. Ordinary tomcat roaming the snow around the dumpster.', 'So, that was your cat? Emmm...', 'pon(6)');
-		[6] = _phr('Yes... That was my Barsik! Tell me!', 
-'... Mmm... I think that man took it... Mmm... — a chill ran down my spine...', 'pon(7)'),
-		[7] = _phr('Where, where did he go?', 'Sorry, brother, I haven\'t seen...', 'shopdlg:pon(4); pon(8);'),
+		[4] = _phr('剛剛我離開的時候，在你身旁有隻貓…牠在哪?', '嗯…', 'pon(5)'),
+		[5] = _phr('對…是一隻普通的山貓，在雪地裡繞著垃圾桶散步。', '所以，那隻是你的貓? 嗯…', 'pon(6)');
+		[6] = _phr('對…他是我的巴西克!多說一些!', 
+'…嗯…我想是那個人帶走了牠…嗯… -- 我的背脊一陣發涼…', 'pon(7)'),
+		[7] = _phr('哪裡...他去了哪裡?', '抱歉了…兄弟，我沒有看到…', 'shopdlg:pon(4); pon(8);'),
 		[8] = phr('好的…沒什麼事了…', '…', 'pon(8); back()'),
 	},
 	exit = function()
@@ -430,7 +430,7 @@ I approached him and offered some money... “I don't need other people's money.
 nomoney = function()
 	pon(1,2,3,4,5);
 	shopdlg:pon(2);
-	return cat('This is when I remember, that I\'ve got no money... None at all...^',back());
+	return cat('我這時想起來我沒有帶錢…半點錢都沒有…^',back());
 end
 
 ifmoney ='if not have("money") then return nomoney(); end; shopman._wantmoney = true; ';
@@ -466,8 +466,8 @@ function dropshells()
 end
 
 shells = obj {
-	nam = 'cartridges',
-	inv = 'Shotgun cartridges. I rarely use those, mostly against poachers.',
+	nam = '彈匣',
+	inv = '散彈槍彈匣，我很少用這些東西，大多用來對付盜獵者。',
 	use = function(s, on)
 		if on == 'gun' then
 			if gun._loaded then
@@ -485,9 +485,9 @@ shells = obj {
 };
 
 news = obj {
-	nam = 'newspaper',
+	nam = '報紙',
 	inv = [[
-Fresh newspaper... <<quantum mechanics institute recently built in taiga vigorously refutes its connection with any anomalous events>>.. Hm...]],
+即時快報…<<近期設立於針葉林中的量子力學研究所，大力駁斥與異常現象有任何關聯>>…嗯…]],
 	used = function(s, w)
 		if w == 'poroh' then
 			if have('trut') then
@@ -501,28 +501,28 @@ Fresh newspaper... <<quantum mechanics institute recently built in taiga vigorou
 };
 
 hamb = obj {
-	nam = 'hamburger',
+	nam = '漢堡',
 	inv = function()
 		inv():del('hamb');
-		return 'I\'ve had a snack. Junk food...';
+		return '我吃了點心…垃圾食物…';
 	end
 };
 
 zerno = obj {
-	nam = 'groats',
-	inv = 'Just a buckwheat. Buckwheat groats...',
+	nam = '穀粒',
+	inv = '就只是蕎麥，蕎麥穀粒…',
 };
 
 shop2 = dlg {
-	nam = 'buy',
+	nam = '購買',
 	pic = 'gfx/shopbuy.png',
 	obj = { 
-	[1] = phr('Shotgun cartridges... I need ammunition...', 'All right... Price as usual', ifmoney..'inv():add("shells")'),
-	[2] = phr('Groats...', 'Good... ', ifmoney..'inv():add("zerno")'),
-	[3] = phr('And a hamburger...', 'Ok..', ifmoney..'inv():add("hamb")'),
-	[4] = phr('Fresh press...', 'Of course...', ifmoney..'inv():add("news")'),
-	[5] = phr('A roll of insulating tape...', 'Yes. Here.', ifmoney..'inv():add("iso")'),
-	[6] = phr('Nothing else...', 'As you wish.', 'pon(6); back()'),
+	[1] = phr('散彈槍彈匣…我需要一些彈藥…', '沒問題…老價錢!', ifmoney..'inv():add("shells")'),
+	[2] = phr('穀粒…', '好的…', ifmoney..'inv():add("zerno")'),
+	[3] = phr('還要一個漢堡…', '好…', ifmoney..'inv():add("hamb")'),
+	[4] = phr('新出刊的報紙…', '當然沒問題…', ifmoney..'inv():add("news")'),
+	[5] = phr('一卷絕緣膠帶…', '是的，在這兒。', ifmoney..'inv():add("iso")'),
+	[6] = phr('沒別的了…', '隨你的便。', 'pon(6); back()'),
 	[7] = _phr('Also I need a ladder and wire cutters...', 'Sorry, I don\'t have those — Vladimir shakes his head'), 
 	},
 	exit = function(s)
@@ -533,15 +533,15 @@ shop2 = dlg {
 };
 
 shopdlg = dlg {
-	nam = 'conversation with the salesman',
+	nam = '和店員的對話',
 	pic = 'gfx/shopman.png',
-	dsc = 'Little eyes drill me with an oily stare.',
+	dsc = '店員的圓溜小眼銳利地直盯著我看著。',
 	obj = {
-	[1] = phr('Hello, Vladimir! How\'s it going?', 'Hello, '..me().nam..'... So-so... - Vladimir smiles slyly.', 'pon(2)'),
-	[2] = _phr('I want to make a few purchases.', 'Ok... Let\'s see, what do you need?', 'pon(2); return walk("shop2")'),
-	[3] = phr('Bye then!...', 'Yeah... Good luck!', 'pon(3); return back();'),
-	[4] = _phr('A man just was here — who is he?', 'Hm? — Vladimir\'s thin eyebrows rise a bit...','pon(5)'),
-	[5] = _phr('For some reason he took my cat... Probably thought he\'s homeless... Who\'s that man in a gray coat?',
+	[1] = phr('哈囉，弗拉迪米爾! 最近還好嗎?', '你好，'..me().nam..'…普普通通… - 弗拉迪米爾狡猾地笑著。', 'pon(2)'),
+	[2] = _phr('我想要買一些東西。', '好的…咱們來看看你需要些什麼東西…', 'pon(2); return walk("shop2")'),
+	[3] = phr('先掰了!…', '好的…祝你好運!', 'pon(3); return back();'),
+	[4] = _phr('剛剛有個男人在這裡，他是誰?', '嗯? — 弗拉迪米爾挑起了一些他的細眉…','pon(5)'),
+	[5] = _phr('不知道為什麼他帶走了我的貓…可能以為牠是流浪貓吧…那個穿灰色外套的人是誰?',
 [[
 Actually, he's some boss... - Vladimir scratches his unshaved chin. — In that new institute, which has been built in our backwoods a year ago...
  — Vladimir's pince-nez twitched as he spoke — he often comes to our shop, 
@@ -585,7 +585,7 @@ shop = room {
 			return;
 		end
 		if shopman._wantmoney then
-			return 'I was going to step outside, when I was stopped by Vlsdimir\'s quiet semicough... Of course, I forgot to pay...', false;
+			return '正當我要踏出店門外時，弗拉迪米爾的輕咳聲讓我停住了腳步…當然啦…我還沒付帳…', false;
 		end
 		if not have('news') then
 			shop2.obj[4]:disable();
@@ -713,7 +713,7 @@ village = room {
 			set_music("mus/revel.s3m");
 			guydlg:pon(4);
 			guydlg:poff(8);
-			return 'I glanced over the parking lot and called — Barsik! Barsik! — Where did my cat disappear?';
+			return '我匆匆望向停車場，大叫著-- 巴西克! 巴西克! -- 我的貓消失去哪裡了?';
 		end
 	end,
 	way = { 'road', 'shop' },
