@@ -197,7 +197,7 @@ inmycar = room {
 			s = s..'巴西克跳了上車，'
 			move('mycat','inmycar');
 		elseif not me()._know_where then
-			return 'No... First I have to find Barsik!', false
+			return '不行…我得先找到巴西克!', false
 		end
 		if f == 'guarddlg' then
 			return 'Hmm... I\'ll have to come up with something...';
@@ -225,7 +225,7 @@ mycar = obj {
 	desc = {
 	[1] = '在小木屋的前方停著我的舊豐田{小貨車}。',
 	[2] = '在停車位裡的是我的舊{小貨車}。',
-	[3] = 'Near the checkpoint stands my {pickup}.',
+	[3] = '我的{小貨車}停在檢查哨的附近。',
 	[4] = 'Behind the corner stands my {pickup}.',
 	},
 	dsc = function(s)
@@ -543,12 +543,11 @@ shopdlg = dlg {
 	[4] = _phr('剛剛有個男人在這裡，他是誰?', '嗯? — 弗拉迪米爾挑起了一些他的細眉…','pon(5)'),
 	[5] = _phr('不知道為什麼他帶走了我的貓…可能以為牠是流浪貓吧…那個穿灰色外套的人是誰?',
 [[
-Actually, he's some boss... - Vladimir scratches his unshaved chin. — In that new institute, which has been built in our backwoods a year ago...
- — Vladimir's pince-nez twitched as he spoke — he often comes to our shop, 
-doesn't like crowds — those physicists — you know... Odd bunch, — Vladimir shrugged...]],'pon(6)'),
-	[6] = _phr('Where is this institute located?', 
-'Kilometer marker 127... But well, you know — Vladimir lowered his voice — there are rumours about his institute...', 'me()._know_where = true; inmycar.way:add("inst");pon(7)'),
-	[7] = _phr('I\'m just going to get back my cat...', 'Take care... If I was in you shoes... — Vladimir shakes his head. — By the way, I think his name is Belin. I\'ve seen his credit card... Even though, as you know, I don\'t accept them — Vladimir moved his lips, his monocle stirred slyly'),
+事實上，他是某個老闆…弗拉迪米爾抓了一下他未刮鬍鬚的下巴。在一年前，建造在我們後方林中那間新的研究所…
+弗拉迪米爾一邊說著，一邊抽動了一下他的夾鼻眼鏡。他常來我的店裡，不喜歡人群…那些物理學家…你知道的…老學究。弗拉迪米爾聳了聳肩…]],'pon(6)'),
+	[6] = _phr('這個研究所在哪裡?', 
+'路標127公里的地方…但…你知道的… 弗拉迪米爾降低了他的音量。 他的研究所有一些傳言…', 'me()._know_where = true; inmycar.way:add("inst");pon(7)'),
+	[7] = _phr('我只想找回我的貓…', '小心一點…如果我是你的話…弗拉迪米爾搖了搖頭。 對了，我想他的名字是貝林，我曾看過他的信用卡…不過即使如此，如你所知，我並不接受使用信用卡。 弗拉迪米爾動了一下嘴唇，他的單片眼鏡也狡猾地動了一下。'),
 	},
 };
 
@@ -756,7 +755,7 @@ There are {guards} in the kiosk. Looks like they are armed with Kalashnikov subm
 	end,
 };
 kpp = room {
-	nam = 'checkpoint',
+	nam = '檢查哨',
 	pic = 'gfx/kpp.png',
 	dsc = [[The checkpoint leaves no doubt that strangers are not welcome in the institute. Lift gate. Latticed kiosk. And silence.
 ]],
@@ -764,10 +763,10 @@ kpp = room {
 	way = { 'inst' }
 };
 inst = room {
-	nam = 'institute',
+	nam = '研究所',
 	pic = 'gfx/inst.png',
 	dsc = [[
-The building rises over the empty field of snow. Its sinister outline looks more like a jail rather than a research institute. There are railways  behind the building. ]],
+這棟建築物矗立在覆蓋著白雪的空地上，與其說是一個研究機構，險惡的外觀讓它看起來更像是一座監獄。 在建築物的後面有鐵路。]],
 	act = function(s, w)
 		if w == 1 then  
 			return 'The wall is 5 meters high. Moreover, there is barbed wire on its top, and I suppose it\'s alive...';
@@ -790,9 +789,9 @@ The building rises over the empty field of snow. Its sinister outline looks more
 			return 'I need the cat, not destruction...';
 		end
 	end,
-	obj = {vobj(1, 'wall', 'The institute building is surrounded by a heavy concrete {wall}. There\'s a checkpoint at the centre.'),
-		vobj(2, 'cameras', 'Survelliance {cameras} watch the area from the towers.'),
-		vobj(3, 'van', 'Behind the gate I can see the black {van}.')},
+	obj = {vobj(1, 'wall', '研究所的建築物被厚重的水泥{牆}所圍繞。有個檢查哨在中央。'),
+		vobj(2, 'cameras', '監視{攝影機}從高塔上看著這片區域。'),
+		vobj(3, 'van', '在圍欄後面我可以看見黑色{廂型車}。')},
 	way = { 'road', 'kpp' },
 	exit = function(s, t)
 		if have('mybox') and t ~= 'inmycar' then
